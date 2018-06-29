@@ -341,7 +341,7 @@ app.post("/createData", function (req, res) {
 var port = (process.env.PORT || 8080)
 
 app.listen(port, function () {
-    var options = { server: { socketOptions: {connectTimeoutMS: 30000 } }};
+    var options = { socketTimeoutMS: 30000 };
 
     mongoose.connect(process.env.MONGODB_URI, options, function(err) {
         if(err != undefined)
