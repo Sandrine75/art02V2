@@ -2,6 +2,8 @@
 var express = require('express');
 var app = express();
 
+require('dotenv').config()
+
 //Allow cross domain request
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -192,7 +194,7 @@ app.post("/createData", function (req, res) {
 
     if(data.name != undefined && data.lat != undefined && data.lng != undefined && data.overview != undefined)
     {
-        
+
         var address = {street:"",city:"",zipCode:"",country:""};
         var description = "";
         var hidden = false;
@@ -233,7 +235,7 @@ app.post("/createData", function (req, res) {
 
         if(data.defaultHour != undefined)
             defaultHour = data.defaultHour;
-        
+
         var time = Object.assign({}, newTime);
         if(data.timeRangeDay != undefined)
             time.day = data.timeRangeDay;
@@ -341,10 +343,9 @@ var port = (process.env.PORT || 8080)
 app.listen(port, function () {
     var options = { server: { socketOptions: {connectTimeoutMS: 30000 } }};
 
-    mongoose.connect('edithpiaf:75017Cesbron@ds263740.mlab.com:63740/edithpiaf',options, function(err) {
+    mongoose.connect(process.env.MONGODB_URI, options, function(err) {
         if(err != undefined)
             console.log(err);
     });
-// mlab edithpiaf 75017Cesbron  mail edithpiaf.celebetrip@gmail.com  75017Cesbron
   console.log("Server listening on port " + port);
 });
